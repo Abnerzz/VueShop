@@ -15,22 +15,39 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 # from django.contrib import admin
+from rest_framework.routers import DefaultRouter
+
 import xadmin
 from VueShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from goods.views_base import GoodsBaseView
-from goods.views import GoodsListView
+from goods.views import GoodsListViewSet, CategoryViewSet
+
+router = DefaultRouter()
+
+# 配置goods的url
+router.register(r'goods', GoodsListViewSet, base_name="goods")
+
+# 配置category的url
+router.register(r'categorys', CategoryViewSet, base_name="categorys")
+
+goods_list = GoodsListViewSet.as_view({
+    'get': 'list',
+})
 
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls', namespace='resy_framework')),
+
+    url(r'^', include(router.urls)),
+
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
     # 商品列表页
-    url(r'^goods/$', GoodsListView.as_view()),
+    # url(r'^goods/$', GoodsListView.as_view()),
 
     url(r'docs/', include_docs_urls(title="vueshop"))
 ]
