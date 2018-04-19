@@ -13,8 +13,8 @@ class GoodsFilter(django_filters.rest_framework.FilterSet):
     """
     商品的过滤类
     """
-    min_price = django_filters.NumberFilter(name="shop_price", lookup_expr="gte")
-    max_price = django_filters.NumberFilter(name="shop_price", lookup_expr="lte")
+    pricemin = django_filters.NumberFilter(name="shop_price", lookup_expr="gte")
+    pricemax = django_filters.NumberFilter(name="shop_price", lookup_expr="lte")
     top_category = django_filters.NumberFilter(method='top_category_filter')
 
     def top_category_filter(self, queryset, name, value):
@@ -22,4 +22,4 @@ class GoodsFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = Goods
-        fields = ['min_price', 'max_price', 'name']
+        fields = ['pricemin', 'pricemax', 'name']

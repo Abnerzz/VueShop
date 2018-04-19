@@ -28,7 +28,7 @@ class GoodsListViewSet(generics.ListAPIView, viewsets.GenericViewSet):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = GoodsFilter
     search_fields = ("name", "goods_brief")
-    ordering_fields = ('sold_num', 'add_time')
+    ordering_fields = ('sold_num', 'shop_price')
 
 
 class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
