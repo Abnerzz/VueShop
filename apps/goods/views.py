@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status, mixins, generics, viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import filters
+from rest_framework.authentication import TokenAuthentication
 
 
 # Create your views here.
@@ -25,6 +26,7 @@ class GoodsListViewSet(generics.ListAPIView, viewsets.GenericViewSet):
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     pagination_class = GoodsResultPagination
+    # authentication_classes = (TokenAuthentication, )
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_class = GoodsFilter
     search_fields = ("name", "goods_brief")

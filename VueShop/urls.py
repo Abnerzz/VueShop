@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 # from django.contrib import admin
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
+from rest_framework_jwt.views import obtain_jwt_token
 
 import xadmin
 from VueShop.settings import MEDIA_ROOT
@@ -49,5 +51,11 @@ urlpatterns = [
     # 商品列表页
     # url(r'^goods/$', GoodsListView.as_view()),
 
-    url(r'docs/', include_docs_urls(title="vueshop"))
+    url(r'docs/', include_docs_urls(title="vueshop")),
+
+    # django restframework自带的token认证
+    url(r'^api-token-auth/', views.obtain_auth_token),
+
+    # jwt认证
+    url(r'^login/', obtain_jwt_token),
 ]
